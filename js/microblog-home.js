@@ -4,11 +4,11 @@ import {
   LitElement
 } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js'
 
-import { FilmsElement } from './films-element.js'
-import { FilmsChooseFilmElement } from './films-choose-film.js'
-import { FilmsInboxElement } from './films-inbox.js'
+import { MicroblogElement } from './microblog-element.js'
+import { MicroblogChooseFilmElement } from './microblog-choose-film.js'
+import { MicroblogInboxElement } from './microblog-inbox.js'
 
-export class FilmsHomeElement extends FilmsElement {
+export class MicroblogHomeElement extends MicroblogElement {
   static styles = css`
     :host {
       display: grid;
@@ -73,9 +73,9 @@ export class FilmsHomeElement extends FilmsElement {
 
     <header>
 
-      <span class="brand"><a href="#">Films</a></span>
+      <span class="brand"><a href="#">Microblog</a></span>
 
-      <sl-button href="#films" variant="primary">
+      <sl-button href="#microblog" variant="primary">
         +
       </sl-button>
 
@@ -97,15 +97,15 @@ export class FilmsHomeElement extends FilmsElement {
 
     <main>
       ${(this._route === 'inbox')
-        ? html`<films-inbox redirect-uri=${this.redirectUri} client-id=${this.clientId} />`
-        : (this._route === 'films')
-          ? html`<films-choose-film redirect-uri=${this.redirectUri}   client-id=${this.clientId} />`
+        ? html`<microblog-inbox redirect-uri=${this.redirectUri} client-id=${this.clientId} />`
+        : (this._route === 'microblog')
+          ? html`<microblog-choose-film redirect-uri=${this.redirectUri}   client-id=${this.clientId} />`
           : html`<sl-alert>Unknown route</sl-alert>`
       }
     </main>
 
     <footer>
-      <a href="https://github.com/social-web-foundation/films/">GitHub</a>
+      <a href="https://github.com/social-web-foundation/microblog/">GitHub</a>
     </footer>
     `
   }
@@ -122,6 +122,6 @@ export class FilmsHomeElement extends FilmsElement {
 }
 
 customElements.define(
-  'films-home',
-  FilmsHomeElement
+  'microblog-home',
+  MicroblogHomeElement
 )

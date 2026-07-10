@@ -4,8 +4,8 @@ import {
   LitElement
 } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js'
 
-import { FilmsElement } from './films-element.js'
-import { FilmsActivityElement } from './films-activity.js'
+import { MicroblogElement } from './microblog-element.js'
+import { MicroblogActivityElement } from './microblog-activity.js'
 
 const ACTIVITY_TYPES = [
   'Activity',
@@ -91,7 +91,7 @@ function isActivity (object) {
   }
 }
 
-export class FilmsInboxElement extends FilmsElement {
+export class MicroblogInboxElement extends MicroblogElement {
   static styles = css`
     .spinner-container {
       display: flex;
@@ -139,11 +139,11 @@ export class FilmsInboxElement extends FilmsElement {
             ${this._activities && this._activities.length > 0
               ? this._activities.map(
                   (a) =>
-                    html`<films-activity
+                    html`<microblog-activity
                       redirect-uri=${this.redirectUri}
                       client-id=${this.clientId}
                       .activity=${a}>
-                    </films-activity>`
+                    </microblog-activity>`
                 )
               : html` <div><p>No activities.</p></div> `}
           </div>
@@ -177,7 +177,7 @@ export class FilmsInboxElement extends FilmsElement {
       if (latestId && activity.id === latestId) {
         break
       }
-      if (this.isFilmsActivity(activity)) {
+      if (this.isMicroblogActivity(activity)) {
         const required = ['id', 'type', 'published', 'actor', 'object']
         activities.push(await this.toObject(activity, { required }))
         this._activities = [...activities, ...cached].slice(
@@ -207,7 +207,7 @@ export class FilmsInboxElement extends FilmsElement {
     this._isLoading = false
   }
 
-  isFilmsActivity (object) {
+  isMicroblogActivity (object) {
     const hasType = (value, target) => {
       if (!value) return false
       return Array.isArray(value) ? value.includes(target) : value === target
@@ -217,4 +217,4 @@ export class FilmsInboxElement extends FilmsElement {
   }
 }
 
-customElements.define('films-inbox', FilmsInboxElement)
+customElements.define('microblog-inbox', MicroblogInboxElement)

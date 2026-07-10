@@ -1,17 +1,17 @@
-const CACHE_PREFIX = "films-cache-";
+const CACHE_PREFIX = "microblog-cache-";
 const CACHE_VERSION = '0.1.5';
 const CACHE_NAME = `${CACHE_PREFIX}-${CACHE_VERSION}`;
 
 const APP_SHELL = [
   "/",
   "/index.html",
-  "/js/films-activity.js",
-  "/js/films-choose-film.js",
-  "/js/films-element.js",
-  "/js/films-home.js",
-  "/js/films-inbox.js",
-  "/js/films-login.js",
-  "/js/films-save.js",
+  "/js/microblog-activity.js",
+  "/js/microblog-choose-film.js",
+  "/js/microblog-element.js",
+  "/js/microblog-home.js",
+  "/js/microblog-inbox.js",
+  "/js/microblog-login.js",
+  "/js/microblog-save.js",
   "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/themes/light.css",
   "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.0/cdn/shoelace.js",
   "https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap",

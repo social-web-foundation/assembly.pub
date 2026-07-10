@@ -3,9 +3,9 @@ import {
   css,
   LitElement
 } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js'
-import { FilmsElement } from './films-element.js'
+import { MicroblogElement } from './films-element.js'
 
-export class FilmsChooseFilmElement extends FilmsElement {
+export class MicroblogChooseFilmElement extends MicroblogElement {
   static styles = css`
     :host {
       display: block;
@@ -61,7 +61,7 @@ export class FilmsChooseFilmElement extends FilmsElement {
     super.connectedCallback()
   }
 
-  async getFilms (q) {
+  async getMicroblog (q) {
     const res = await fetch(
       `https://movies.pub/search/movie?q=${encodeURIComponent(q)}&lng=en`,
       {
@@ -96,7 +96,7 @@ export class FilmsChooseFilmElement extends FilmsElement {
       return
     }
     try {
-      this._films = await this.getFilms(q)
+      this._films = await this.getMicroblog(q)
       if (this._films.length > 0) {
         this._dropdown?.show()
       } else {
@@ -233,4 +233,4 @@ export class FilmsChooseFilmElement extends FilmsElement {
   }
 }
 
-customElements.define('films-choose-film', FilmsChooseFilmElement)
+customElements.define('films-choose-film', MicroblogChooseFilmElement)

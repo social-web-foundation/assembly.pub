@@ -6,7 +6,7 @@ import {
 
 import * as oauth from 'https://cdn.jsdelivr.net/npm/oauth4webapi@3/+esm'
 
-export class FilmsLoginElement extends LitElement {
+export class MicroblogLoginElement extends LitElement {
   WEBFINGER_REGEXP =
     /^(?:acct:)?(?<username>[^@]+)@(?<domain>(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)(?:\.(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?))*)$/
 
@@ -60,10 +60,10 @@ export class FilmsLoginElement extends LitElement {
 
   render () {
     return html`
-      <h1>Films</h1>
+      <h1>Microblog</h1>
       <p class="intro">
         Welcome! This is an <a href="https://activitypub.rocks/">ActivityPub</a>
-        films Web application. To log in, you need to have an account on a
+        microblog Web application. To log in, you need to have an account on a
         compatible server.
       </p>
       <div class="login-form">
@@ -203,4 +203,4 @@ export class FilmsLoginElement extends LitElement {
   }
 }
 
-customElements.define('films-login', FilmsLoginElement)
+customElements.define('microblog-login', MicroblogLoginElement)

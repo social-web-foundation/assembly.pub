@@ -6,7 +6,7 @@ import {
 
 import * as oauth from 'https://cdn.jsdelivr.net/npm/oauth4webapi@3/+esm'
 
-export class FilmsSaveElement extends LitElement {
+export class MicroblogSaveElement extends LitElement {
   static get properties () {
     return {
       redirectUri: { type: String, attribute: 'redirect-uri' },
@@ -110,4 +110,4 @@ export class FilmsSaveElement extends LitElement {
   }
 }
 
-customElements.define('films-save', FilmsSaveElement)
+customElements.define('microblog-save', MicroblogSaveElement)
