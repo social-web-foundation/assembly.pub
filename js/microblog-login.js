@@ -183,7 +183,7 @@ export class MicroblogLoginElement extends LitElement {
       sessionStorage.setItem('code_verifier', code_verifier)
       sessionStorage.setItem('state', state)
 
-      const url = new URL(authorizationUrl)
+      const url = new URL(as.authorization_endpoint)
 
       url.searchParams.set('client_id', this.clientId)
       url.searchParams.set('redirect_uri', this.redirectUri)
