@@ -212,8 +212,8 @@ export class MicroblogInboxElement extends MicroblogElement {
       if (!value) return false
       return Array.isArray(value) ? value.includes(target) : value === target
     }
-    return hasType(object.type, 'View') &&
-      hasType(object.object?.type, 'Video')
+    return hasType(object.type, 'Create') &&
+      hasType(object.object?.type, 'Note')
   }
 }
 
