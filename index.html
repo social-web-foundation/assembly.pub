@@ -72,13 +72,6 @@
                 client-id=${client_id}
                 redirect-uri=${redirect_uri} />`;
       });
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker
-            .register("/js/service-worker.js")
-            .catch((err) => console.error("SW registration failed:", err));
-        });
-      }
     </script>
   </body>
 </html>
