@@ -161,8 +161,9 @@ export class MicroblogLoginElement extends LitElement {
     try {
       const actorId = await this.getActorId(id)
       localStorage.setItem('actor_id', actorId)
+      const origin = URL.parse(actorId).origin
 
-      const as = this.getAsFromOrigin(URL.parse(actorId).origin)
+      const as = await this.getAsFromOrigin(origin)
 
       if (!as) {
         throw new Exception("OAuth discovery not supported")
@@ -171,6 +172,8 @@ export class MicroblogLoginElement extends LitElement {
       if (!as.client_id_metadata_document_supported) {
         throw new Exception("CIMD not supported")
       }
+
+      sessionStorage.setItem(`as:${origin}`, JSON.stringify(as))
 
       const code_verifier = oauth.generateRandomCodeVerifier()
       const code_challenge =

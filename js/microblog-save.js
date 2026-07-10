@@ -38,8 +38,8 @@ export class MicroblogSaveElement extends LitElement {
   }
 
   clearSession () {
-    localStorage.removeItem('state')
-    localStorage.removeItem('code_verifier')
+    sessionStorage.removeItem('state')
+    sessionStorage.removeItem('code_verifier')
   }
 
   saveResult (result) {
@@ -53,16 +53,12 @@ export class MicroblogSaveElement extends LitElement {
   }
 
   async handleLogin () {
-    const authorizationServer = {
-      issuer: (new URL(localStorage.getItem('actor_id'))).origin,
-      authorization_endpoint: localStorage.getItem('authorization_endpoint'),
-      token_endpoint: localStorage.getItem('token_endpoint'),
-      code_challenge_methods_supported: ['S256'],
-      scopes_supported: ['read', 'write'],
-      response_types_supported: ['code'],
-      grant_types_supported: ['authorization_code', 'refresh_token']
-    }
+    const origin = (new URL(localStorage.getItem('actor_id'))).origin
+    const as =
+      JSON.parse(sessionStorage.getItem(`as:${origin}`))
+
     const clientAuth = oauth.None()
+
     const client = {
       client_id: this.clientId
     }
@@ -72,14 +68,14 @@ export class MicroblogSaveElement extends LitElement {
 
     try {
       const params = oauth.validateAuthResponse(
-        authorizationServer,
+        as,
         client,
         new URLSearchParams(window.location.search),
         state
       )
 
       const response = await oauth.authorizationCodeGrantRequest(
-        authorizationServer,
+        as,
         client,
         clientAuth,
         params,
@@ -88,7 +84,7 @@ export class MicroblogSaveElement extends LitElement {
       )
 
       const result = await oauth.processAuthorizationCodeResponse(
-        authorizationServer,
+        as,
         client,
         response
       )
