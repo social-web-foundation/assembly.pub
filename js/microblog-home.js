@@ -5,7 +5,7 @@ import {
 } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js'
 
 import { MicroblogElement } from './microblog-element.js'
-import { MicroblogChooseFilmElement } from './microblog-choose-film.js'
+import { MicroblogNewNoteElement } from './microblog-new-note.js'
 import { MicroblogInboxElement } from './microblog-inbox.js'
 
 export class MicroblogHomeElement extends MicroblogElement {
@@ -99,7 +99,7 @@ export class MicroblogHomeElement extends MicroblogElement {
       ${(this._route === 'inbox')
         ? html`<microblog-inbox redirect-uri=${this.redirectUri} client-id=${this.clientId} />`
         : (this._route === 'microblog')
-          ? html`<microblog-choose-film redirect-uri=${this.redirectUri}   client-id=${this.clientId} />`
+          ? html`<microblog-new-note redirect-uri=${this.redirectUri}   client-id=${this.clientId} />`
           : html`<sl-alert>Unknown route</sl-alert>`
       }
     </main>

@@ -3,9 +3,9 @@ import {
   css,
   LitElement
 } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js'
-import { MicroblogElement } from './Microblog-element.js'
+import { MicroblogElement } from './microblog-element.js'
 
-export class MicroblogChooseFilmElement extends MicroblogElement {
+export class MicroblogNewNoteElement extends MicroblogElement {
   static styles = css`
     :host {
       display: block;
@@ -50,7 +50,6 @@ export class MicroblogChooseFilmElement extends MicroblogElement {
     super()
     this._Microblog = []
     this._query = ''
-    this._selectedFilm = ''
     this._note = ''
     this._privacy = 'public'
     this._searchTimer = null
@@ -59,67 +58,6 @@ export class MicroblogChooseFilmElement extends MicroblogElement {
 
   connectedCallback () {
     super.connectedCallback()
-  }
-
-  async getMicroblog (q) {
-    const res = await fetch(
-      `https://movies.pub/search/movie?q=${encodeURIComponent(q)}&lng=en`,
-      {
-        headers: {
-          Accept:
-            'application/activity+json,application/lrd+json,application/json'
-        }
-      }
-    )
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch Microblog.')
-    }
-
-    const collection = await res.json()
-    const Microblog = collection.items.filter((p) => p.name || p.nameMap)
-    return Microblog
-  }
-
-  _onSearchInput (event) {
-    this._query = event.target.value
-    this._selectedFilm = ''
-    clearTimeout(this._searchTimer)
-    this._searchTimer = setTimeout(() => this._runSearch(), 250)
-  }
-
-  async _runSearch () {
-    const q = this._query.trim()
-    if (q.length < 3) {
-      this._Microblog = []
-      this._dropdown?.hide()
-      return
-    }
-    try {
-      this._Microblog = await this.getMicroblog(q)
-      if (this._Microblog.length > 0) {
-        this._dropdown?.show()
-      } else {
-        this._dropdown?.hide()
-      }
-    } catch (err) {
-      this._error = err.message
-    }
-  }
-
-  _onMicroblogelect (event) {
-    const item = event.detail.item
-    this._selectedFilm = item.value
-    this._query = item.getTextLabel().trim()
-    this._dropdown?.hide()
-  }
-
-  get _dropdown () {
-    return this.renderRoot?.querySelector('sl-dropdown')
-  }
-
-  displayName (film) {
-    return film.name ?? film.nameMap?.en
   }
 
   _onNoteInput (event) {
@@ -135,25 +73,6 @@ export class MicroblogChooseFilmElement extends MicroblogElement {
       return html`<sl-alert variant="danger">${this._error}</sl-alert>`
     }
     return html`
-      <div class="form-group">
-        <sl-dropdown hoist>
-          <sl-input
-            slot="trigger"
-            label="Film"
-            placeholder="Type to search"
-            .value=${this._query}
-            @sl-input=${this._onSearchInput}
-            @keydown=${(e) => e.stopPropagation()}
-          ></sl-input>
-          <sl-menu @sl-select=${this._onMicroblogelect}>
-            ${this._Microblog.map(
-              (film) => html`
-                <sl-menu-item value="${film.id}">${this.displayName(film)}</sl-menu-item>
-              `
-            )}
-          </sl-menu>
-        </sl-dropdown>
-      </div>
       <div class="form-group">
         <sl-textarea
           label="Note"
@@ -176,9 +95,9 @@ export class MicroblogChooseFilmElement extends MicroblogElement {
       <div class="form-group actions">
         <sl-button
           variant="primary"
-          ?disabled=${!this._selectedFilm || this._submitting}
+          ?disabled=${!this._note || this._submitting}
           ?loading=${this._submitting}
-          @click=${this._submitView}
+          @click=${this._submitCreate}
         >
           Check In
         </sl-button>
@@ -186,7 +105,7 @@ export class MicroblogChooseFilmElement extends MicroblogElement {
     `
   }
 
-  async _submitView () {
+  async _submitCreate () {
     if (this._submitting) return
     const film = this._Microblog.find((p) => p.id === this._selectedFilm)
     if (!film) return
@@ -202,11 +121,10 @@ export class MicroblogChooseFilmElement extends MicroblogElement {
           name: actor.name,
           url: actor.url
         },
-        type: 'View',
+        type: 'Create',
         object: {
-          id: film.id,
-          type: 'Video',
-          name: this.displayName(film)
+          type: 'Note',
+          content: this._note
         },
         content
       }
@@ -233,4 +151,4 @@ export class MicroblogChooseFilmElement extends MicroblogElement {
   }
 }
 
-customElements.define('Microblog-choose-film', MicroblogChooseFilmElement)
+customElements.define('microblog-new-note', MicroblogNewNoteElement)
