@@ -140,16 +140,16 @@ export class MicroblogLoginElement extends LitElement {
     return await res.json()
   }
 
-  async getAuthorizationEndpoint (actor) {
-    return actor.endpoints?.oauthAuthorizationEndpoint
-  }
-
-  async getTokenEndpoint (actor) {
-    return actor.endpoints?.oauthTokenEndpoint
-  }
-
-  async getProxyUrl (actor) {
-    return actor.endpoints?.proxyUrl
+  async getAsFromOrigin (asOrigin) {
+    const res = await oauth.discoveryRequest(new URL(asOrigin), {
+      algorithm: 'oauth2',
+      [oauth.allowInsecureRequests]: allowInsecureRequests
+    })
+    if (!res.ok) {
+      return null
+    }
+    const as = await oauth.processDiscoveryResponse(new URL(asOrigin), res)
+    return as
   }
 
   async _login () {
@@ -162,25 +162,20 @@ export class MicroblogLoginElement extends LitElement {
     try {
       const actorId = await this.getActorId(id)
       localStorage.setItem('actor_id', actorId)
-      const actor = await this.getActor(actorId)
-      const tokenUrl = await this.getTokenEndpoint(actor)
-      if (!tokenUrl) {
-        throw new Error('No OAuth token endpoint.')
+
+      const as = this.getAsFromOrigin(URL.parse(actorId).origin)
+
+      if (!as) {
+        throw new Exception("OAuth discovery not supported")
       }
-      localStorage.setItem('token_endpoint', tokenUrl)
-      const proxyUrl = await this.getProxyUrl(actor)
-      if (!proxyUrl) {
-        throw new Error('No Proxy endpoint.')
+
+      if (!as.client_id_metadata_document_supported) {
+        throw new Exception("CIMD not supported")
       }
-      localStorage.setItem('proxy_url', proxyUrl)
-      const authorizationUrl = await this.getAuthorizationEndpoint(actor)
-      if (!authorizationUrl) {
-        throw new Error('No OAuth authorization endpoint.')
-      }
-      localStorage.setItem('authorization_endpoint', authorizationUrl)
 
       const code_verifier = oauth.generateRandomCodeVerifier()
-      const code_challenge = await oauth.calculatePKCECodeChallenge(code_verifier)
+      const code_challenge =
+        await oauth.calculatePKCECodeChallenge(code_verifier)
       const state = crypto.randomUUID()
 
       sessionStorage.setItem('code_verifier', code_verifier)

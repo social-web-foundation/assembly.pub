@@ -53,8 +53,8 @@
       </div>
     </div>
     <script type="module">
-      const client_id = "https://social-web-foundation.github.io/microblog/client.jsonld";
-      const redirect_uri = "https://social-web-foundation.github.io/microblog/";
+      const redirect_uri = window.location.origin + window.location.pathname;
+      const client_id = (new URL('cimd.json', window.location.href)).toString();
 
       document.addEventListener("DOMContentLoaded", () => {
         const params = new URLSearchParams(window.location.search);
