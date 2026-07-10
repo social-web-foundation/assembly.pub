@@ -3,7 +3,7 @@ import {
   css,
   LitElement
 } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js'
-import { MicroblogElement } from './films-element.js'
+import { MicroblogElement } from './Microblog-element.js'
 
 export class MicroblogChooseFilmElement extends MicroblogElement {
   static styles = css`
@@ -38,7 +38,7 @@ export class MicroblogChooseFilmElement extends MicroblogElement {
       redirectUri: { type: String, attribute: 'redirect-uri' },
       clientId: { type: String, attribute: 'client-id' },
       _error: { type: String, state: true },
-      _films: { type: Array, state: true },
+      _Microblog: { type: Array, state: true },
       _selectedFilm: { type: String, state: true },
       _note: { type: String, state: true },
       _privacy: { type: String, state: true },
@@ -48,7 +48,7 @@ export class MicroblogChooseFilmElement extends MicroblogElement {
 
   constructor () {
     super()
-    this._films = []
+    this._Microblog = []
     this._query = ''
     this._selectedFilm = ''
     this._note = ''
@@ -73,12 +73,12 @@ export class MicroblogChooseFilmElement extends MicroblogElement {
     )
 
     if (!res.ok) {
-      throw new Error('Failed to fetch films.')
+      throw new Error('Failed to fetch Microblog.')
     }
 
     const collection = await res.json()
-    const films = collection.items.filter((p) => p.name || p.nameMap)
-    return films
+    const Microblog = collection.items.filter((p) => p.name || p.nameMap)
+    return Microblog
   }
 
   _onSearchInput (event) {
@@ -91,13 +91,13 @@ export class MicroblogChooseFilmElement extends MicroblogElement {
   async _runSearch () {
     const q = this._query.trim()
     if (q.length < 3) {
-      this._films = []
+      this._Microblog = []
       this._dropdown?.hide()
       return
     }
     try {
-      this._films = await this.getMicroblog(q)
-      if (this._films.length > 0) {
+      this._Microblog = await this.getMicroblog(q)
+      if (this._Microblog.length > 0) {
         this._dropdown?.show()
       } else {
         this._dropdown?.hide()
@@ -107,7 +107,7 @@ export class MicroblogChooseFilmElement extends MicroblogElement {
     }
   }
 
-  _onFilmSelect (event) {
+  _onMicroblogelect (event) {
     const item = event.detail.item
     this._selectedFilm = item.value
     this._query = item.getTextLabel().trim()
@@ -145,8 +145,8 @@ export class MicroblogChooseFilmElement extends MicroblogElement {
             @sl-input=${this._onSearchInput}
             @keydown=${(e) => e.stopPropagation()}
           ></sl-input>
-          <sl-menu @sl-select=${this._onFilmSelect}>
-            ${this._films.map(
+          <sl-menu @sl-select=${this._onMicroblogelect}>
+            ${this._Microblog.map(
               (film) => html`
                 <sl-menu-item value="${film.id}">${this.displayName(film)}</sl-menu-item>
               `
@@ -188,7 +188,7 @@ export class MicroblogChooseFilmElement extends MicroblogElement {
 
   async _submitView () {
     if (this._submitting) return
-    const film = this._films.find((p) => p.id === this._selectedFilm)
+    const film = this._Microblog.find((p) => p.id === this._selectedFilm)
     if (!film) return
 
     this._submitting = true
@@ -233,4 +233,4 @@ export class MicroblogChooseFilmElement extends MicroblogElement {
   }
 }
 
-customElements.define('films-choose-film', MicroblogChooseFilmElement)
+customElements.define('Microblog-choose-film', MicroblogChooseFilmElement)

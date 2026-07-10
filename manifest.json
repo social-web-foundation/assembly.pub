@@ -1,6 +1,6 @@
 {
-  "name": "Films",
-  "short_name": "Films",
+  "name": "Microblog",
+  "short_name": "Microblog",
   "description": "ActivityPub Check-in",
   "start_url": "/",
   "scope": "/",

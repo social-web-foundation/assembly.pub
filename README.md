@@ -1,3 +1,3 @@
-# films
+# Microblog
 
-Example client for ActivityPub films
+Example client for ActivityPub Microblog

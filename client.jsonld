@@ -3,10 +3,10 @@
     "https://www.w3.org/ns/activitystreams",
     "https://purl.archive.org/socialweb/oauth"
   ],
-  "id": "https://films.swf.pub/client.jsonld",
-  "name": "Films Sample App",
+  "id": "https://social-web-foundation.github.io/microblog/client.jsonld",
+  "name": "Microblog Sample App",
   "summary": "A sample client for film viewing over ActivityPub",
-  "redirectURI": "https://films.swf.pub/",
+  "redirectURI": "https://social-web-foundation.github.io/microblog/",
   "attributedTo": {
     "id": "https://socialwebfoundation.org/author/evanprodromou/",
     "name": "Evan Prodromou"
