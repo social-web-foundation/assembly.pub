@@ -142,8 +142,7 @@ export class MicroblogLoginElement extends LitElement {
 
   async getAsFromOrigin (asOrigin) {
     const res = await oauth.discoveryRequest(new URL(asOrigin), {
-      algorithm: 'oauth2',
-      [oauth.allowInsecureRequests]: allowInsecureRequests
+      algorithm: 'oauth2'
     })
     if (!res.ok) {
       return null
