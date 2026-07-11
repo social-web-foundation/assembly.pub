@@ -207,13 +207,13 @@ export class MicroblogInboxElement extends MicroblogElement {
     this._isLoading = false
   }
 
-  isMicroblogActivity (object) {
+  isMicroblogActivity (activity) {
     const hasType = (value, target) => {
       if (!value) return false
       return Array.isArray(value) ? value.includes(target) : value === target
     }
-    return hasType(object.type, 'Create') &&
-      hasType(object.object?.type, 'Note')
+    return hasType(activity.type, 'Create') &&
+      hasType(activity.object?.type, 'Note')
   }
 }
 
