@@ -108,17 +108,11 @@ export class MicroblogNewNoteElement extends MicroblogElement {
       const content = (this._note) ? this._note.trim() : undefined
 
       const activity = {
-        actor: {
-          id: actor.id,
-          name: actor.name,
-          url: actor.url
-        },
         type: 'Create',
         object: {
           type: 'Note',
-          content: this._note
-        },
-        content
+          content
+        }
       }
 
       const followers = await this.toId(actor.followers)
