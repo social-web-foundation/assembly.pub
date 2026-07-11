@@ -38,8 +38,6 @@ export class MicroblogNewNoteElement extends MicroblogElement {
       redirectUri: { type: String, attribute: 'redirect-uri' },
       clientId: { type: String, attribute: 'client-id' },
       _error: { type: String, state: true },
-      _Microblog: { type: Array, state: true },
-      _selectedFilm: { type: String, state: true },
       _note: { type: String, state: true },
       _privacy: { type: String, state: true },
       _submitting: { type: Boolean, state: true }
@@ -48,11 +46,8 @@ export class MicroblogNewNoteElement extends MicroblogElement {
 
   constructor () {
     super()
-    this._Microblog = []
-    this._query = ''
     this._note = ''
     this._privacy = 'public'
-    this._searchTimer = null
     this._submitting = false
   }
 
