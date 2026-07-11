@@ -69,7 +69,8 @@ export class MicroblogActivityElement extends MicroblogElement {
       _actor: { type: Object, state: true },
       _location: { type: Object, state: true },
       _target: { type: Object, state: true },
-      _origin: { type: Object, state: true }
+      _origin: { type: Object, state: true },
+      _object: { type: Object, state: true}
     }
   }
 
@@ -84,12 +85,14 @@ export class MicroblogActivityElement extends MicroblogElement {
     this._location = this.activity?.location
     this._target = this.activity?.target
     this._origin = this.activity?.origin
+    this._object = this.activity?.object
     // Load in the background
     Promise.all([
       this._loadActor(),
       this._loadLocation(),
       this._loadTarget(),
-      this._loadOrigin()
+      this._loadOrigin(),
+      this._loadObject()
     ]).then(() => {
       console.log('Parts loaded')
     })
@@ -119,6 +122,12 @@ export class MicroblogActivityElement extends MicroblogElement {
     }
   }
 
+  async _loadObject () {
+    if (this.activity.object) {
+      this._object = await this.toObject(this.activity.object)
+    }
+  }
+
   render () {
     return html`
       <sl-card>
@@ -131,18 +140,38 @@ export class MicroblogActivityElement extends MicroblogElement {
         </div>
 
         <div class="card-body">
-          <p class="summary">
-            ${this.activity.summary
-              ? unsafeHTML(DOMPurify.sanitize(this.activity.summary))
-              : this.activity.summaryMap?.en
-              ? unsafeHTML(DOMPurify.sanitize(this.activity.summaryMap.en))
-              : unsafeHTML(this.makeSummary(this.activity))}
-          </p>
-          ${this.activity.content
-            ? html`<p class="content">${unsafeHTML(DOMPurify.sanitize(this.activity.content))}</p>`
-            : (this.activity.contentMap?.en)
-            ? html`<p class="content">${unsafeHTML(DOMPurify.sanitize(this.activity.contentMap?.en))}</p>`
-            : ''}
+          ${this.activity.type == 'Create'
+            ? <div class="create">
+                ${this._object?.type == 'Note'
+                  ? this._object.content
+                    ? html`<p class="content">${unsafeHTML(DOMPurify.sanitize(this._object.content))}</p>`
+                    : (this._object.contentMap?.en)
+                    ? html`<p class="content">${unsafeHTML(DOMPurify.sanitize(this._object.contentMap?.en))}</p>`
+                    : ''
+                  : this._object?.summary
+                    ? unsafeHTML(DOMPurify.sanitize(this._object.summary))
+                    : this._object.summaryMap?.en
+                    ? unsafeHTML(DOMPurify.sanitize(this._object.summaryMap.en))
+                    : unsafeHTML(this.makeSummary(this._object))
+                  }
+              </div>
+            :
+            <div class="generic">
+              <p class="summary">
+              ${this.activity.summary
+                ? unsafeHTML(DOMPurify.sanitize(this.activity.summary))
+                : this.activity.summaryMap?.en
+                ? unsafeHTML(DOMPurify.sanitize(this.activity.summaryMap.en))
+                : unsafeHTML(this.makeSummary(this.activity))}
+            </p>
+            ${this.activity.content
+              ? html`<p class="content">${unsafeHTML(DOMPurify.sanitize(this.activity.content))}</p>`
+              : (this.activity.contentMap?.en)
+              ? html`<p class="content">${unsafeHTML(DOMPurify.sanitize(this.activity.contentMap?.en))}</p>`
+              : ''}
+            </div>
+          }
+
         </div>
 
         <div slot="footer" class="card-footer">
