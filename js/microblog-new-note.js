@@ -99,7 +99,7 @@ export class MicroblogNewNoteElement extends MicroblogElement {
           ?loading=${this._submitting}
           @click=${this._submitCreate}
         >
-          Check In
+          Post!
         </sl-button>
       </div>
     `
@@ -107,9 +107,6 @@ export class MicroblogNewNoteElement extends MicroblogElement {
 
   async _submitCreate () {
     if (this._submitting) return
-    const film = this._Microblog.find((p) => p.id === this._selectedFilm)
-    if (!film) return
-
     this._submitting = true
     try {
       const actor = await this.getActor()
