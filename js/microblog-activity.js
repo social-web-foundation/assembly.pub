@@ -141,7 +141,7 @@ export class MicroblogActivityElement extends MicroblogElement {
 
         <div class="card-body">
           ${this.activity.type == 'Create'
-            ? <div class="create">
+            ? html`<div class="create">
                 ${this._object?.type == 'Note'
                   ? this._object.content
                     ? html`<p class="content">${unsafeHTML(DOMPurify.sanitize(this._object.content))}</p>`
@@ -149,14 +149,14 @@ export class MicroblogActivityElement extends MicroblogElement {
                     ? html`<p class="content">${unsafeHTML(DOMPurify.sanitize(this._object.contentMap?.en))}</p>`
                     : ''
                   : this._object?.summary
-                    ? unsafeHTML(DOMPurify.sanitize(this._object.summary))
+                    ? html`<p class="summary">${unsafeHTML(DOMPurify.sanitize(this._object.summary))}</p>`
                     : this._object.summaryMap?.en
-                    ? unsafeHTML(DOMPurify.sanitize(this._object.summaryMap.en))
-                    : unsafeHTML(this.makeSummary(this._object))
+                    ? html`<p class="summary">${unsafeHTML(DOMPurify.sanitize(this._object.summaryMap.en))}</p>`
+                    : html`<p class="summary">${unsafeHTML(this.makeSummary(this._object))}</p>`
                   }
-              </div>
+              </div>`
             :
-            <div class="generic">
+            html`<div class="generic">
               <p class="summary">
               ${this.activity.summary
                 ? unsafeHTML(DOMPurify.sanitize(this.activity.summary))
@@ -164,12 +164,14 @@ export class MicroblogActivityElement extends MicroblogElement {
                 ? unsafeHTML(DOMPurify.sanitize(this.activity.summaryMap.en))
                 : unsafeHTML(this.makeSummary(this.activity))}
             </p>
+            <p class="content">
             ${this.activity.content
               ? html`<p class="content">${unsafeHTML(DOMPurify.sanitize(this.activity.content))}</p>`
               : (this.activity.contentMap?.en)
               ? html`<p class="content">${unsafeHTML(DOMPurify.sanitize(this.activity.contentMap?.en))}</p>`
               : ''}
-            </div>
+            </p>
+            </div>`
           }
 
         </div>
