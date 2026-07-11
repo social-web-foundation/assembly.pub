@@ -135,7 +135,10 @@ export class MicroblogNewNoteElement extends MicroblogElement {
       }
 
       await this.doActivity(activity)
-      window.location = '/'
+      const u = new URL(window.location.href)
+      u.hash = "";
+      const url = u.toString()
+      window.location = url
     } catch (err) {
       this._error = err.message
       this._submitting = false
