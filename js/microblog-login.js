@@ -161,6 +161,10 @@ export class MicroblogLoginElement extends LitElement {
     try {
       const actorId = await this.getActorId(id)
       localStorage.setItem('actor_id', actorId)
+      const actor = await this.getActor(actorId)
+
+      localStorage.setItem('proxy_url', actor.endpoints?.proxyUrl)
+
       const origin = URL.parse(actorId).origin
 
       const as = await this.getAsFromOrigin(origin)
