@@ -49,7 +49,11 @@
       </div>
     </div>
     <script type="module">
-      const redirect_uri = window.location.origin + window.location.pathname;
+      if (window.location.pathname.endsWith('/index.html')) {
+        window.location.replace(`${window.location.origin}/${window.location.search}${window.location.hash}`);
+      }
+
+      const redirect_uri = `${window.location.origin}/`;
       const client_id = (new URL('cimd.json', window.location.href)).toString();
 
       document.addEventListener("DOMContentLoaded", () => {
