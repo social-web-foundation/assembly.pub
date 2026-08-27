@@ -1,3 +1,3 @@
-# Microblog
+# Assembly
 
-Example client for ActivityPub Microblog
+Example client for ActivityPub Groups
