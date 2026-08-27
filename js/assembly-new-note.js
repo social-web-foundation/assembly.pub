@@ -3,9 +3,9 @@ import {
   css,
   LitElement
 } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js'
-import { MicroblogElement } from './microblog-element.js'
+import { AssemblyElement } from './assembly-element.js'
 
-export class MicroblogNewNoteElement extends MicroblogElement {
+export class AssemblyNewNoteElement extends AssemblyElement {
   static styles = css`
     :host {
       display: block;
@@ -140,4 +140,4 @@ export class MicroblogNewNoteElement extends MicroblogElement {
   }
 }
 
-customElements.define('microblog-new-note', MicroblogNewNoteElement)
+customElements.define('assembly-new-note', AssemblyNewNoteElement)

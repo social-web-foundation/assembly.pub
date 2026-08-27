@@ -6,7 +6,7 @@ import {
 
 import * as oauth from 'https://cdn.jsdelivr.net/npm/oauth4webapi@3/+esm'
 
-export class MicroblogLoginElement extends LitElement {
+export class AssemblyLoginElement extends LitElement {
   WEBFINGER_REGEXP =
     /^(?:acct:)?(?<username>[^@]+)@(?<domain>(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)(?:\.(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?))*)$/
 
@@ -60,10 +60,10 @@ export class MicroblogLoginElement extends LitElement {
 
   render () {
     return html`
-      <h1>Microblog</h1>
+      <h1>Assembly</h1>
       <p class="intro">
         Welcome! This is an <a href="https://activitypub.rocks/">ActivityPub</a>
-        microblog Web application. To log in, you need to have an account on a
+        Assembly web application. To log in, you need to have an account on a
         compatible server.
       </p>
       <div class="login-form">
@@ -204,4 +204,4 @@ export class MicroblogLoginElement extends LitElement {
   }
 }
 
-customElements.define('microblog-login', MicroblogLoginElement)
+customElements.define('assembly-login', AssemblyLoginElement)

@@ -4,9 +4,9 @@ import {
   unsafeHTML
 } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/all/lit-all.min.js'
 import DOMPurify from 'https://cdn.jsdelivr.net/npm/dompurify@3.2.3/+esm'
-import { MicroblogElement } from './microblog-element.js'
+import { AssemblyElement } from './assembly-element.js'
 
-export class MicroblogActivityElement extends MicroblogElement {
+export class AssemblyActivityElement extends AssemblyElement {
   static styles = css`
     :host {
       display: block;
@@ -184,4 +184,4 @@ export class MicroblogActivityElement extends MicroblogElement {
   }
 }
 
-customElements.define('microblog-activity', MicroblogActivityElement)
+customElements.define('assembly-activity', AssemblyActivityElement)

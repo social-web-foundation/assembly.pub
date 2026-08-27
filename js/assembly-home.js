@@ -4,11 +4,11 @@ import {
   LitElement
 } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js'
 
-import { MicroblogElement } from './microblog-element.js'
-import { MicroblogNewNoteElement } from './microblog-new-note.js'
-import { MicroblogInboxElement } from './microblog-inbox.js'
+import { AssemblyElement } from './assembly-element.js'
+import { AssemblyNewNoteElement } from './assembly-new-note.js'
+import { AssemblyInboxElement } from './assembly-inbox.js'
 
-export class MicroblogHomeElement extends MicroblogElement {
+export class AssemblyHomeElement extends AssemblyElement {
   static styles = css`
     :host {
       display: grid;
@@ -73,9 +73,9 @@ export class MicroblogHomeElement extends MicroblogElement {
 
     <header>
 
-      <span class="brand"><a href="#">Microblog</a></span>
+      <span class="brand"><a href="#">Assembly</a></span>
 
-      <sl-button href="#microblog" variant="primary">
+      <sl-button href="#assembly" variant="primary">
         +
       </sl-button>
 
@@ -97,15 +97,15 @@ export class MicroblogHomeElement extends MicroblogElement {
 
     <main>
       ${(this._route === 'inbox')
-        ? html`<microblog-inbox redirect-uri=${this.redirectUri} client-id=${this.clientId} />`
-        : (this._route === 'microblog')
-          ? html`<microblog-new-note redirect-uri=${this.redirectUri}   client-id=${this.clientId} />`
+        ? html`<assembly-inbox redirect-uri=${this.redirectUri} client-id=${this.clientId} />`
+        : (this._route === 'assembly')
+          ? html`<assembly-new-note redirect-uri=${this.redirectUri}   client-id=${this.clientId} />`
           : html`<sl-alert>Unknown route</sl-alert>`
       }
     </main>
 
     <footer>
-      <a href="https://github.com/social-web-foundation/microblog/">GitHub</a>
+      <a href="https://github.com/social-web-foundation/assembly.swf.pub/">GitHub</a>
     </footer>
     `
   }
@@ -122,6 +122,6 @@ export class MicroblogHomeElement extends MicroblogElement {
 }
 
 customElements.define(
-  'microblog-home',
-  MicroblogHomeElement
+  'assembly-home',
+  AssemblyHomeElement
 )

@@ -4,8 +4,8 @@ import {
   LitElement
 } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js'
 
-import { MicroblogElement } from './microblog-element.js'
-import { MicroblogActivityElement } from './microblog-activity.js'
+import { AssemblyElement } from './assembly-element.js'
+import { AssemblyActivityElement } from './assembly-activity.js'
 
 const ACTIVITY_TYPES = [
   'Activity',
@@ -91,7 +91,7 @@ function isActivity (object) {
   }
 }
 
-export class MicroblogInboxElement extends MicroblogElement {
+export class AssemblyInboxElement extends AssemblyElement {
   static styles = css`
     .spinner-container {
       display: flex;
@@ -139,11 +139,11 @@ export class MicroblogInboxElement extends MicroblogElement {
             ${this._activities && this._activities.length > 0
               ? this._activities.map(
                   (a) =>
-                    html`<microblog-activity
+                    html`<assembly-activity
                       redirect-uri=${this.redirectUri}
                       client-id=${this.clientId}
                       .activity=${a}>
-                    </microblog-activity>`
+                    </assembly-activity>`
                 )
               : html` <div><p>No activities.</p></div> `}
           </div>
@@ -177,7 +177,7 @@ export class MicroblogInboxElement extends MicroblogElement {
       if (latestId && activity.id === latestId) {
         break
       }
-      if (this.isMicroblogActivity(activity)) {
+      if (this.isAssemblyActivity(activity)) {
         const required = ['id', 'type', 'published', 'actor', 'object']
         activities.push(await this.toObject(activity, { required }))
         this._activities = [...activities, ...cached].slice(
@@ -207,7 +207,7 @@ export class MicroblogInboxElement extends MicroblogElement {
     this._isLoading = false
   }
 
-  isMicroblogActivity (activity) {
+  isAssemblyActivity (activity) {
     const hasType = (value, target) => {
       if (!value) return false
       return Array.isArray(value) ? value.includes(target) : value === target
@@ -217,4 +217,4 @@ export class MicroblogInboxElement extends MicroblogElement {
   }
 }
 
-customElements.define('microblog-inbox', MicroblogInboxElement)
+customElements.define('assembly-inbox', AssemblyInboxElement)

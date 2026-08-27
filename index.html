@@ -37,9 +37,9 @@
         padding: 1rem;
       }
     </style>
-    <script type="module" src="js/microblog-login.js"></script>
-    <script type="module" src="js/microblog-save.js"></script>
-    <script type="module" src="js/microblog-home.js"></script>
+    <script type="module" src="js/assembly-login.js"></script>
+    <script type="module" src="js/assembly-save.js"></script>
+    <script type="module" src="js/assembly-home.js"></script>
     <title>Assembly</title>
   </head>
   <body>
@@ -55,16 +55,16 @@
       document.addEventListener("DOMContentLoaded", () => {
         const params = new URLSearchParams(window.location.search);
         document.getElementById("page").innerHTML = params.get("state")
-          ? `<microblog-save
+          ? `<assembly-save
                 client-id=${client_id}
                 redirect-uri=${redirect_uri}
                 success-uri=${redirect_uri}
               />`
           : !localStorage.getItem("access_token")
-            ? `<microblog-login
+            ? `<assembly-login
                 client-id=${client_id}
                 redirect-uri=${redirect_uri} />`
-            : `<microblog-home
+            : `<assembly-home
                 client-id=${client_id}
                 redirect-uri=${redirect_uri} />`;
       });
