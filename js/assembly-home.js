@@ -105,7 +105,7 @@ export class AssemblyHomeElement extends AssemblyElement {
     </main>
 
     <footer>
-      <a href="https://github.com/social-web-foundation/assembly.swf.pub/">GitHub</a>
+      <a href="https://github.com/social-web-foundation/assembly.pub/">GitHub</a>
     </footer>
     `
   }
