@@ -1,8 +1,8 @@
 {
-  "client_id": "https://social-web-foundation.github.io/microblog/cimd.json",
-  "client_name": "Microblog Client for ActivityPub API",
+  "client_id": "https://assembly.swf.pub/cimd.json",
+  "client_name": "Assembly - Groups for ActivityPub",
   "redirect_uris": [
-    "https://social-web-foundation.github.io/microblog/index.html"
+    "https://assembly.swf.pub/index.html"
   ],
   "scope": "read write",
   "token_endpoint_auth_method": "none",
@@ -13,7 +13,7 @@
   "response_types": [
     "code"
   ],
-  "client_uri": "https://social-web-foundation.github.io/microblog/index.html",
-  "software_id": "B3510C29-19F0-4F9C-9F9D-A7C399DC5F35",
+  "client_uri": "https://assembly.swf.pub/index.html",
+  "software_id": "549FF930-DFD5-4063-8FEE-39B8A2FEBE105",
   "software_version": "0.1.0"
 }
