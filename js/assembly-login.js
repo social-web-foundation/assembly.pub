@@ -62,9 +62,7 @@ export class AssemblyLoginElement extends LitElement {
     return html`
       <h1>Assembly</h1>
       <p class="intro">
-        Welcome! This is an <a href="https://activitypub.rocks/">ActivityPub</a>
-        Assembly web application. To log in, you need to have an account on a
-        compatible server.
+        Welcome! This is Assembly, an <a href="https://activitypub.rocks/">ActivityPub</a> web application for groups. To log in, you need to have an account on a compatible server.
       </p>
       <div class="login-form">
         <sl-input
